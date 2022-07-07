@@ -1,6 +1,6 @@
 package com.qa.dfespringboot.controllers;
 
-import java.util.ArrayList;
+
 import java.util.List;
 
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -13,46 +13,47 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.qa.dfespringboot.entities.Customer;
+import com.qa.dfespringboot.service.CustomerService;
 
 
 @RestController
 @RequestMapping("/customer")
 public class CustomerController {
 
-	private List<Customer> customers = new ArrayList<>();
+	 private CustomerService service;
+	 
+	 public CustomerController(CustomerService service) {
+		 this.service = service;
+	 }
 	
 	 @GetMapping("getAll")
 	 public List<Customer> getAll() {
-		 return this.customers;
+		 return this.service.getAll();
 		 
 	 }
 	 
 	 @GetMapping("/getById/{id}")
 	 public Customer getById(@PathVariable int id) {
-		 return this.customers.get(id);
+		 return this.service.getById(id);
+		 
 	 }
 
 	
 	 @PostMapping("/create")
 	 public Customer create(@RequestBody Customer customer) {
-		  this.customers.add(customer);
-		return this.customers.get(this.customers.size() -1); //returns the latest entry added to the list
-		 
+      return this.service.create(customer);
 	 }
 	 
 	 @PutMapping("/update/{id}")
-	 public Customer update(@PathVariable int id, @RequestBody Customer customer) {
-		 this.customers.remove(id);
-		 
-		 this.customers.add(id, customer);
-		 
-		 return this.customers.get(id);
+	 public Customer update(@PathVariable int id, @RequestBody Customer customer) {		 
+		 return this.service.update(id, customer);
 		 
 	 }
 	 
 	 @DeleteMapping("/delete/{id}") 
 	 public Customer delete(@PathVariable int id) {
-		 return this.customers.remove(id);
+		 return this.service.delete(id);
+		 
 	 }
 }
 	
