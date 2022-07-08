@@ -33,7 +33,7 @@ public class CustomerController {
 	 }
 	 
 	 @GetMapping("/getById/{id}")
-	 public Customer getById(@PathVariable int id) {
+	 public Customer getById(@PathVariable Long id) {
 		 return this.service.getById(id);
 		 
 	 }
@@ -45,13 +45,13 @@ public class CustomerController {
 	 }
 	 
 	 @PutMapping("/update/{id}")
-	 public Customer update(@PathVariable int id, @RequestBody Customer customer) {		 
+	 public Customer update(@PathVariable Long id, @RequestBody Customer customer) {		 
 		 return this.service.update(id, customer);
 		 
 	 }
 	 
 	 @DeleteMapping("/delete/{id}") 
-	 public Customer delete(@PathVariable int id) {
+	 public boolean delete(@PathVariable Long id) {
 		 return this.service.delete(id);
 		 
 	 }
